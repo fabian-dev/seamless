@@ -1,0 +1,13 @@
+package dev.sch8fa.seamless;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class SeamlessApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
