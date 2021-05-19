@@ -14,7 +14,7 @@ public class MongoSoftwareStore implements SoftwareStore {
     }
 
     @Override
-    public Software find(String name) {
+    public Software findOrCreate(String name) {
         var found = repository.findByNameIgnoreCase(name);
         if (found.size() == 1) {
             return found.get(0);

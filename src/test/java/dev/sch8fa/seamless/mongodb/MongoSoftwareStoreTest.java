@@ -1,12 +1,11 @@
 package dev.sch8fa.seamless.mongodb;
 
 import dev.sch8fa.seamless.Software;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static com.google.common.collect.Lists.newArrayList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -26,20 +25,21 @@ class MongoSoftwareStoreTest {
     @Test
     void findsExisting() {
 
-        var toFind = new Software("some name");
+        var toFind = new Software("some id", "some name", newArrayList());
 
         when(repository.findByNameIgnoreCase("some name")).thenReturn(newArrayList(toFind));
 
-        var actual = sut.find("some name");
+        var actual = sut.findOrCreate("some name");
 
-        Assertions.assertThat(actual).isEqualTo(toFind);
+        assertThat(actual).isEqualTo(toFind);
     }
 
     @Test
     void createsNewIfCannotFind() {
 
-        var actual = sut.find("unknown");
+        var actual = sut.findOrCreate("unknown");
 
-        Assertions.assertThat(actual.getId()).isNull();
+        assertThat(actual.getId()).isNull();
+        assertThat(actual.getName()).isEqualTo("unknown");
     }
 }
