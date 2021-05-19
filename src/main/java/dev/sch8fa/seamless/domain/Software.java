@@ -1,4 +1,4 @@
-package dev.sch8fa.seamless;
+package dev.sch8fa.seamless.domain;
 
 
 import lombok.*;

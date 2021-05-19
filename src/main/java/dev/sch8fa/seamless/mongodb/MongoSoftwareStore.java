@@ -1,7 +1,7 @@
 package dev.sch8fa.seamless.mongodb;
 
-import dev.sch8fa.seamless.Software;
-import dev.sch8fa.seamless.SoftwareStore;
+import dev.sch8fa.seamless.domain.Software;
+import dev.sch8fa.seamless.domain.SoftwareStore;
 import org.springframework.stereotype.Component;
 
 @Component

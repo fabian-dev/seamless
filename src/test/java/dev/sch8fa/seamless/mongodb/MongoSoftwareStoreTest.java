@@ -1,6 +1,6 @@
 package dev.sch8fa.seamless.mongodb;
 
-import dev.sch8fa.seamless.Software;
+import dev.sch8fa.seamless.domain.Software;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,6 @@ class MongoSoftwareStoreTest {
     @BeforeEach
     void setUp() {
         repository = mock(MongoSoftwareRepository.class);
-
         sut = new MongoSoftwareStore(repository);
     }
 

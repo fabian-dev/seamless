@@ -1,12 +1,15 @@
 package dev.sch8fa.seamless;
 
+import dev.sch8fa.seamless.domain.NewCompatibility;
+import dev.sch8fa.seamless.domain.SoftwareStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 
 @RestController
@@ -21,17 +24,16 @@ public class Api {
         this.store = store;
     }
 
-    @PutMapping("/{softwareName}")
-    public void compatibilityObserved(@RequestBody @Valid NewCompatibility newCompatibility,
-                                      @PathVariable @NotNull @NotEmpty String softwareName) {
+    @PostMapping("/")
+    public void compatibilityObserved(@RequestBody @Valid NewCompatibility newCompatibility) {
 
-        var software = store.findOrCreate(softwareName);
+        var software = store.findOrCreate(newCompatibility.softwareName());
 
         software.observeCompatibility(newCompatibility);
 
         store.save(software);
 
-        logger.info("Updated {} with new compatibility {}", softwareName, newCompatibility.toString());
+        logger.info("Updated {} with new compatibility {}", newCompatibility.softwareName(), newCompatibility);
     }
 
 }
