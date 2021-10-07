@@ -15,4 +15,8 @@ public class Compatibility {
     private String componentVersion;
     @NonNull
     private String softwareVersion;
+
+    public static Compatibility from(NewCompatibility newCompatibility) {
+        return new Compatibility(LocalDateTime.now(), newCompatibility.componentName(), newCompatibility.componentVersion(), newCompatibility.softwareVersion());
+    }
 }

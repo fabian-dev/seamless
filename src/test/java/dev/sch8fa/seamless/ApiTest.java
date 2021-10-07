@@ -12,7 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -29,8 +31,11 @@ class ApiTest extends AbstractMongoDbTest {
 
         mvc.perform(post("/api/").contentType(MediaType.APPLICATION_JSON)
                         .content(asJson(newCompatibility)))
-                .andExpect(status().isOk())
-                .andReturn();
+                .andExpect(status().isOk());
+
+        //noinspection JsonPathUnknownFunction
+        mvc.perform(get("/api/some name/")).andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(1));
     }
 
     @ParameterizedTest

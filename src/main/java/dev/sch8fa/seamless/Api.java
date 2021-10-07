@@ -1,15 +1,14 @@
 package dev.sch8fa.seamless;
 
+import dev.sch8fa.seamless.domain.Compatibility;
 import dev.sch8fa.seamless.domain.NewCompatibility;
 import dev.sch8fa.seamless.domain.SoftwareStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -22,6 +21,11 @@ public class Api {
 
     public Api(SoftwareStore store) {
         this.store = store;
+    }
+
+    @GetMapping("/{name}")
+    public List<Compatibility> forSoftwareName(@PathVariable String name) {
+        return store.findOrCreate(name).getCompatibilities();
     }
 
     @PostMapping("/")
