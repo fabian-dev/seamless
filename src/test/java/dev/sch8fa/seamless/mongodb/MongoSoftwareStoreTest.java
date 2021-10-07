@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class MongoSoftwareStoreTest {
 
@@ -34,11 +33,19 @@ class MongoSoftwareStoreTest {
     }
 
     @Test
-    void createsNewIfCannotFind() {
+    void createsNewIfNotFound() {
 
         var actual = sut.findOrCreate("unknown");
 
         assertThat(actual.getId()).isNull();
         assertThat(actual.getName()).isEqualTo("unknown");
+    }
+
+    @Test
+    void delegatesSave() {
+
+        sut.save(new Software("some id", "some name", newArrayList()));
+
+        verify(repository, times(1)).save(argThat(s -> s.getId().equals("some id")));
     }
 }

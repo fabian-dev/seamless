@@ -1,6 +1,7 @@
 package dev.sch8fa.seamless.domain;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NonNull;
 
 import java.time.LocalDateTime;
 
@@ -14,8 +15,4 @@ public class Compatibility {
     private String componentVersion;
     @NonNull
     private String softwareVersion;
-
-    public void observed() {
-        observedAt = LocalDateTime.of(2020, 1, 1, 0, 0, 0);
-    }
 }
